@@ -17,7 +17,7 @@ public class SlabMove : MonoBehaviour
     void Update()
     {
         Vector3 mousePos = Input.mousePosition;
-        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, 100, 10));
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, 50, 0.3f));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

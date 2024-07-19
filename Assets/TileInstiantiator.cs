@@ -41,11 +41,6 @@ public class TileInstiantiator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //timer -= Time.deltaTime;
-        //if (timer <= 0)
-        //{
-        //    timer = 10f;
-        //    ball.GetComponent<Rigidbody2D>().velocity *= 1.3f;
-        //}
+
     }
 }
