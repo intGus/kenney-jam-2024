@@ -12,9 +12,17 @@ public class TileInstiantiator : MonoBehaviour
     public int cols;
     public float tileWidth = 2.0f;
     public float tileHeight = 0.5f;
-    public GameObject inst;
-    public GameObject ball;
+    private GameObject inst;
+    private GameObject ball;
     //private float timer = 10f;
+
+    private Color[] colors = new Color[]
+    {
+        new Color(1, 0.30f, 0.37f, 1), // Red
+        new Color(1, 1, 1, 1), // White
+        new Color(0.25f, 0.62f, 0.86f, 1), // Blue
+        new Color(1, 0.8f, 0, 1)  // Yellow
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +40,8 @@ public class TileInstiantiator : MonoBehaviour
             {
                 inst = Instantiate(tile, new Vector3(i+1, j-(tileHeight/2), 0), Quaternion.identity);
                 m_SpriteRenderer = inst.GetComponentsInChildren<SpriteRenderer>();
-                m_SpriteRenderer[0].color = new Color(((float)Mathf.Abs(i) / 10), 0, 0, 1);
+                Color randomColor = colors[Random.Range(0, colors.Length)];
+                m_SpriteRenderer[0].color = randomColor;
             }
         }
         

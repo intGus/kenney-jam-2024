@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
+    private ParticleSystem lightningParticleSystem;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject lightningObject = GameObject.Find("Lightning");
+        lightningParticleSystem = lightningObject.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -18,6 +21,7 @@ public class Collision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        lightningParticleSystem.Play();
         Destroy(gameObject);
     }
 }
