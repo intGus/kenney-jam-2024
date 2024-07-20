@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class TileInstiantiator : MonoBehaviour
+public class WorldLogic : MonoBehaviour
 {
     SpriteRenderer[] m_SpriteRenderer;
     public GameObject tile;
@@ -24,11 +24,16 @@ public class TileInstiantiator : MonoBehaviour
         new Color(1, 0.8f, 0, 1)  // Yellow
     };
 
+    void Awake()
+    {
+        // Prints first
+        GameManager.Instance.InitializeGameState();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, Camera.main.nearClipPlane));
-        Debug.Log("Screen Width : " + screenBounds.x);
         EdgeCollider2D edgeCollider = GetComponent<EdgeCollider2D>();
         Vector2[] edgePoints = new Vector2[4];
         edgePoints[0] = new Vector2(-screenBounds.x, -screenBounds.y);
@@ -39,8 +44,7 @@ public class TileInstiantiator : MonoBehaviour
         rows = (int)(Mathf.Round(screenBounds.x));
         cols = (int)Mathf.Abs(Mathf.Round(screenBounds.y));
         ball = GameObject.FindGameObjectWithTag("Ball");
-        ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -5);
-        Debug.Log("Rows : " + rows + " Cols : " + cols);
+        //ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -5);
         for (float i = rows; i < Mathf.Abs(rows); i+=tileWidth)
         {
             for (float j = 1; j <= cols; j+=tileHeight)

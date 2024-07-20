@@ -25,24 +25,6 @@ public class SlabMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Vector2 paddlePosition = transform.position;
-        //Vector2 hitPosition = collision.contacts[0].point;
-        //float paddleWidth = GetComponent<Collider2D>().bounds.size.x;
-        //float relativePosition = (hitPosition.x - paddlePosition.x) / (paddleWidth / 2);
-
-        //Vector2 currentDirection = rb.velocity.normalized;
-        //float speed = rb.velocity.magnitude;
-
-        //float angleAdjustment = relativePosition * angleAdjustmentFactor; // Adjust this factor to control the sensitivity
-
-        //// Adjust the ball's direction
-        //float currentAngle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
-        //float newAngle = currentAngle + angleAdjustment;
-        //Vector2 newDirection = new Vector2(Mathf.Cos(newAngle * Mathf.Deg2Rad), Mathf.Sin(newAngle * Mathf.Deg2Rad));
-
-        //// Apply the new velocity to the ball
-        //rb.velocity = newDirection * speed;
-
         if (collision.gameObject.layer == 3) 
         {
             counter += 1;

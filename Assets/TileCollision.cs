@@ -36,6 +36,7 @@ public class Collision : MonoBehaviour
         tileObject.GetComponent<Collider2D>().enabled = false;
 
         // Destroy the tileObject
+        GameManager.Instance.AddPoints(1);
         Destroy(tileObject);
 
         Vector2 horizontalBoxSize = new Vector2(2.1f, 0.1f); // Larger horizontally
