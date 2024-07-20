@@ -27,8 +27,15 @@ public class TileInstiantiator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("Screen Width : " + Screen.width);
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, Camera.main.nearClipPlane));
+        Debug.Log("Screen Width : " + screenBounds.x);
+        EdgeCollider2D edgeCollider = GetComponent<EdgeCollider2D>();
+        Vector2[] edgePoints = new Vector2[4];
+        edgePoints[0] = new Vector2(-screenBounds.x, -screenBounds.y);
+        edgePoints[1] = new Vector2(-screenBounds.x, screenBounds.y);
+        edgePoints[2] = new Vector2(screenBounds.x, screenBounds.y);
+        edgePoints[3] = new Vector2(screenBounds.x, -screenBounds.y);
+        edgeCollider.points = edgePoints;
         rows = (int)(Mathf.Round(screenBounds.x));
         cols = (int)Mathf.Abs(Mathf.Round(screenBounds.y));
         ball = GameObject.FindGameObjectWithTag("Ball");
