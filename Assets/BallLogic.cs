@@ -8,7 +8,7 @@ public class BallLogic : MonoBehaviour
 {
     public GameObject lightning;
     private ParticleSystem lightningParticleSystem;
-    public float newAngleDegrees = 90f; // The new angle you want to set, in degrees
+    public float newAngleDegrees = 90f; // new angle for the angle breaker
     private Rigidbody2D rb;
     public GameObject LevelClearedScreen;
     public AudioSource bounceSound;
@@ -52,20 +52,18 @@ public class BallLogic : MonoBehaviour
         bounceSound.PlayScheduled(startTime);
         if (rb.velocity.y > 0f && rb.velocity.y < 0.8f)
         {
-            // Calculate the new velocity vector based on the desired angle
             float newAngleRadians = newAngleDegrees * Mathf.Deg2Rad; // Convert degrees to radians
             Vector2 newVelocity = new Vector2(Mathf.Cos(newAngleRadians), Mathf.Sin(newAngleRadians)) * rb.velocity.magnitude;
 
-            // Set the Rigidbody's velocity to the new velocity
+            // Set the Rigidbody's velocity
             rb.velocity = newVelocity;
             Debug.Log("Angle Breaker!");
         } else if (rb.velocity.y < 0f && rb.velocity.y > -0.8f)
         {
-            // Calculate the new velocity vector based on the desired angle
             float newAngleRadians = newAngleDegrees * Mathf.Deg2Rad; // Convert degrees to radians
             Vector2 newVelocity = new Vector2(Mathf.Cos(newAngleRadians), Mathf.Sin(newAngleRadians)) * rb.velocity.magnitude;
 
-            // Set the Rigidbody's velocity to the new velocity
+            // Set the Rigidbody's velocity
             rb.velocity = newVelocity;
             Debug.Log("Angle Breaker!");
         }

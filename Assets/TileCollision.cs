@@ -33,7 +33,6 @@ public class TileCollision : MonoBehaviour
 
     void CheckAndDestroyAdjacentTiles(GameObject tileObject, Color colorToMatch)
     {
-        // Immediately return if the tileObject is null or its collider is already disabled (indicating it's been processed)
         if (tileObject == null || !tileObject.GetComponent<Collider2D>().enabled)
         {
             return;

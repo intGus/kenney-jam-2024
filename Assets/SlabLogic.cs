@@ -36,5 +36,6 @@ public class SlabMove : MonoBehaviour
             rb.velocity *= 1.1f;
             counter = 0;
         }
+        GameManager.Instance.CheckLevelCompletion();
     }
 }

@@ -73,8 +73,8 @@ public class GameManager : MonoBehaviour
         int minimumBonus = 100; // Minimum bonus points
 
         // Scale the maxTimeBonus and timeThreshold with the Difficulty level
-        int maxTimeBonus = baseMaxTimeBonus + (Difficulty * 100); // Increase max bonus by 100 per difficulty level
-        int timeThreshold = baseTimeThreshold + (Difficulty * 2); // Increase time threshold by 2 seconds per difficulty level
+        int maxTimeBonus = baseMaxTimeBonus + (Difficulty * 100); 
+        int timeThreshold = baseTimeThreshold + (Difficulty * 2);
 
         // Calculate the bonus for the level based on elapsed time
         int timeBonus = Mathf.Max(minimumBonus, maxTimeBonus - (ElapsedTime * (maxTimeBonus - minimumBonus) / timeThreshold));

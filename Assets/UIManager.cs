@@ -5,7 +5,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI livesText; // Reference to the TextMeshProUGUI component
+    public TextMeshProUGUI livesText;
 
     private void OnEnable()
     {
