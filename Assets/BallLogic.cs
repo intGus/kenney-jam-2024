@@ -10,7 +10,8 @@ public class BallLogic : MonoBehaviour
     private ParticleSystem lightningParticleSystem;
     public float newAngleDegrees = 90f; // The new angle you want to set, in degrees
     private Rigidbody2D rb;
-    public Vector3 startPosition = new Vector3(0, -2f, 0);
+    public GameObject LevelClearedScreen;
+
     public Vector2 initialVelocity  = new Vector2(0, -5);
    
     // Start is called before the first frame update
@@ -34,8 +35,9 @@ public class BallLogic : MonoBehaviour
             ResetBall();
         }
 
-        if (Input.GetMouseButtonDown(0) && rb.velocity.magnitude == 0) // Check if the ball is stationary
+        if (Input.GetMouseButtonDown(0) && !LevelClearedScreen.activeInHierarchy && rb.velocity.magnitude == 0) // Check if the ball is stationary
         {
+            GameManager.Instance.LevelStartTime = Time.time;
             rb.velocity = initialVelocity;
         }
 
@@ -64,10 +66,10 @@ public class BallLogic : MonoBehaviour
         }    
         lightningParticleSystem.Play();
     }
-    void ResetBall()
+    public void ResetBall()
     {
+
         rb.velocity = Vector2.zero; // Reset velocity to 0
-        transform.position = startPosition; // Reset the ball's position
-        Debug.Log($"Ball reset to position: {startPosition}");
+        transform.position = new Vector3(0, -2, 0); // Reset the ball's position
     }
 }

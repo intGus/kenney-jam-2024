@@ -44,23 +44,26 @@ public class WorldLogic : MonoBehaviour
         rows = (int)(Mathf.Round(screenBounds.x));
         cols = (int)Mathf.Abs(Mathf.Round(screenBounds.y));
         ball = GameObject.FindGameObjectWithTag("Ball");
-        //ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -5);
-        for (float i = rows; i < Mathf.Abs(rows); i+=tileWidth)
-        {
-            for (float j = 1; j <= cols; j+=tileHeight)
-            {
-                inst = Instantiate(tile, new Vector3(i+1, j-(tileHeight/2), 0), Quaternion.identity);
-                m_SpriteRenderer = inst.GetComponentsInChildren<SpriteRenderer>();
-                Color randomColor = colors[Random.Range(0, colors.Length)];
-                m_SpriteRenderer[0].color = randomColor;
-            }
-        }
-        
+        GenerateLevel(rows, cols, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void GenerateLevel(int rows, int cols, int difficulty)
+    {
+        for (float i = rows; i < Mathf.Abs(rows); i += tileWidth)
+        {
+            for (float j = 1; j <= cols; j += tileHeight)
+            {
+                inst = Instantiate(tile, new Vector3(i + 1, j - (tileHeight / 2), 0), Quaternion.identity);
+                m_SpriteRenderer = inst.GetComponentsInChildren<SpriteRenderer>();
+                Color randomColor = colors[Random.Range(0, difficulty + 1)];
+                m_SpriteRenderer[0].color = randomColor;
+            }
+        }
     }
 }

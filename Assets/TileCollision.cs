@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Collision : MonoBehaviour
+public class TileCollision : MonoBehaviour
 {
     //private ParticleSystem lightningParticleSystem;
     private Color tileColor;
@@ -22,6 +22,7 @@ public class Collision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         CheckAndDestroyAdjacentTiles(gameObject, tileColor);
+        GameManager.Instance.CheckLevelCompletion();
     }
 
     void CheckAndDestroyAdjacentTiles(GameObject tileObject, Color colorToMatch)
@@ -37,7 +38,7 @@ public class Collision : MonoBehaviour
 
         // Destroy the tileObject
         GameManager.Instance.AddPoints(1);
-        Destroy(tileObject);
+        Destroy(tileObject.transform.parent.gameObject);
 
         Vector2 horizontalBoxSize = new Vector2(2.1f, 0.1f); // Larger horizontally
         Vector2 verticalBoxSize = new Vector2(0.1f, 0.6f); // Larger vertically
