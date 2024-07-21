@@ -25,6 +25,12 @@ public class TileCollision : MonoBehaviour
         GameManager.Instance.CheckLevelCompletion();
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        CheckAndDestroyAdjacentTiles(gameObject, tileColor);
+        GameManager.Instance.CheckLevelCompletion();
+    }
+
     void CheckAndDestroyAdjacentTiles(GameObject tileObject, Color colorToMatch)
     {
         // Immediately return if the tileObject is null or its collider is already disabled (indicating it's been processed)

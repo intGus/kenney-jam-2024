@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int Points { get; set; } // Points per level
     public int Lives { get; set; }
     public int Score { get; set; } // Total score
+    public  int Difficulty { get; set; }
     public float LevelStartTime { get; set; }
     public float LevelEndTime { get; set; }
     public int ElapsedTime { get; set; }
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
         Points = 0; // Reset points
         Lives = 3; // Set starting lives to 3
         Score = 0; // Reset score
+        Difficulty = 2; // Set starting difficulty to 1
     }
     public void AddPoints(int pointsToAdd)
     {
@@ -64,6 +66,25 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CheckLevelCompletionAfterDelay());
     }
 
+    public void CalculateTimeBasedBonus()
+    {
+        int baseMaxTimeBonus = 1000; // Base maximum bonus points available
+        int baseTimeThreshold = 20; // Base time in seconds for the maximum bonus
+        int minimumBonus = 100; // Minimum bonus points
+
+        // Scale the maxTimeBonus and timeThreshold with the Difficulty level
+        int maxTimeBonus = baseMaxTimeBonus + (Difficulty * 100); // Increase max bonus by 100 per difficulty level
+        int timeThreshold = baseTimeThreshold + (Difficulty * 2); // Increase time threshold by 2 seconds per difficulty level
+
+        // Calculate the bonus for the level based on elapsed time
+        int timeBonus = Mathf.Max(minimumBonus, maxTimeBonus - (ElapsedTime * (maxTimeBonus - minimumBonus) / timeThreshold));
+
+        // Add the time-based bonus to the score
+        Points += timeBonus;
+
+        Debug.Log($"Time Bonus: {timeBonus}, Total Score: {Points}");
+    }
+
     private IEnumerator CheckLevelCompletionAfterDelay()
     {
         yield return new WaitForEndOfFrame(); // Wait until the end of the frame
@@ -73,10 +94,12 @@ public class GameManager : MonoBehaviour
             LevelEndTime = Time.time;
             ElapsedTime = Mathf.RoundToInt(LevelEndTime - LevelStartTime);
             Debug.Log("Level Cleared!");
+            Difficulty++;
             ballLogic.ResetBall();
+            CalculateTimeBasedBonus();
             GetTotal();
             Modal.SetActive(true);
-            worldLogic.GenerateLevel(worldLogic.rows, worldLogic.cols, 2);
+            worldLogic.GenerateLevel(worldLogic.rows, worldLogic.cols, Difficulty);
         }
     }
 }

@@ -21,7 +21,10 @@ public class WorldLogic : MonoBehaviour
         new Color(1, 0.30f, 0.37f, 1), // Red
         new Color(1, 1, 1, 1), // White
         new Color(0.25f, 0.62f, 0.86f, 1), // Blue
-        new Color(1, 0.8f, 0, 1)  // Yellow
+        new Color(1, 0.8f, 0, 1),  // Yellow
+        new Color(0.18f, 0.8f, 0.43f, 1), // Green
+        new Color(1f, 0.44f, 0.83f, 1), // Pink
+        new Color(1f, 0.53f, 0.23f,1), // Orange
     };
 
     void Awake()
@@ -44,7 +47,7 @@ public class WorldLogic : MonoBehaviour
         rows = (int)(Mathf.Round(screenBounds.x));
         cols = (int)Mathf.Abs(Mathf.Round(screenBounds.y));
         ball = GameObject.FindGameObjectWithTag("Ball");
-        GenerateLevel(rows, cols, 1);
+        GenerateLevel(rows, cols, 2);
     }
 
     // Update is called once per frame
@@ -55,13 +58,14 @@ public class WorldLogic : MonoBehaviour
 
     public void GenerateLevel(int rows, int cols, int difficulty)
     {
+        if (difficulty > colors.Length) { difficulty = colors.Length; }
         for (float i = rows; i < Mathf.Abs(rows); i += tileWidth)
         {
             for (float j = 1; j <= cols; j += tileHeight)
             {
                 inst = Instantiate(tile, new Vector3(i + 1, j - (tileHeight / 2), 0), Quaternion.identity);
                 m_SpriteRenderer = inst.GetComponentsInChildren<SpriteRenderer>();
-                Color randomColor = colors[Random.Range(0, difficulty + 1)];
+                Color randomColor = colors[Random.Range(0, difficulty)];
                 m_SpriteRenderer[0].color = randomColor;
             }
         }

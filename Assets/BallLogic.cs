@@ -11,6 +11,8 @@ public class BallLogic : MonoBehaviour
     public float newAngleDegrees = 90f; // The new angle you want to set, in degrees
     private Rigidbody2D rb;
     public GameObject LevelClearedScreen;
+    public AudioSource bounceSound;
+    public AudioSource lightningSound;
 
     public Vector2 initialVelocity  = new Vector2(0, -5);
    
@@ -30,6 +32,7 @@ public class BallLogic : MonoBehaviour
             GameManager.Instance.LoseLife();
             if (GameManager.Instance.Lives == 0)
             {
+                GameManager.Instance.GetTotal();
                 SceneManager.LoadScene("GameOver");
             }
             ResetBall();
@@ -45,6 +48,8 @@ public class BallLogic : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        double startTime = AudioSettings.dspTime + 0.0005;
+        bounceSound.PlayScheduled(startTime);
         if (rb.velocity.y > 0f && rb.velocity.y < 0.8f)
         {
             // Calculate the new velocity vector based on the desired angle
@@ -63,8 +68,19 @@ public class BallLogic : MonoBehaviour
             // Set the Rigidbody's velocity to the new velocity
             rb.velocity = newVelocity;
             Debug.Log("Angle Breaker!");
-        }    
-        lightningParticleSystem.Play();
+        }
+
+        if (collision.gameObject.CompareTag("Tile"))
+        {
+            float chance = 0.3f; // 30% chance.
+            if (Random.value < chance)
+            {
+                Debug.Log("Lightning Strike!");
+                lightningParticleSystem.Play();
+                lightningSound.Play();
+                Debug.Log("Attempting to play lightning sound");
+            }
+        }
     }
     public void ResetBall()
     {
